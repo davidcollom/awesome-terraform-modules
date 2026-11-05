@@ -1,0 +1,33 @@
+name: Update Awesome
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+  workflow_dispatch:
+  push:
+
+jobs:
+  gen:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run AwesomeGen
+        # The tag v1 of the action follows the releases of awesomegen, so
+        # the action definition itself is always the newest one. "latest"
+        # resolves the newest published release through the GitHub API,
+        # which is the release that the action was built for.
+        uses: davidcollom/awesomegen@v1
+        with:
+          config: config.yaml
+          version: latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: auto-update README"
+          title: "chore: auto-update README"
+          branch: "auto/update-readme"
+          body: "Automated README refresh."
