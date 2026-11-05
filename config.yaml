@@ -1,0 +1,10 @@
+version: 1
+user: "davidcollom"
+lists:
+  - slug: "terraform-modules" # taken from /stars/<user>/lists/<slug>
+    title: "Awesome Terraform Modules"
+    tagline: "Modules that are worth reusing."
+    min_stars: 0
+    stale_months: 0
+    badges:
+      - "https://img.shields.io/badge/awesome-yes-brightgreen"
